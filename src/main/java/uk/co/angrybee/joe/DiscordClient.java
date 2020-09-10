@@ -626,11 +626,9 @@ public class DiscordClient extends ListenerAdapter
                         }
 
                         if (DiscordWhitelister.useEasyWhitelist) {
-                            if (!invalidMinecraftName) // have to do this else the easy whitelist plugin will add the name regardless of whether it is valid on not
-                            {
-                                if (authorPermissions.isUserCanUseCommand()) {
-                                    executeServerCommand("easywl add " + finalNameToAdd);
-                                }
+
+                            if (authorPermissions.isUserCanUseCommand()) {
+                                executeServerCommand("easywl add " + finalNameToAdd);
                             }
 
                             // run through the server so that the check doesn't execute before the server has had a chance to run the whitelist command -- unsure if this is the best way of doing this, but it works
@@ -642,7 +640,7 @@ public class DiscordClient extends ListenerAdapter
                                     e.printStackTrace();
                                 }
 
-                                if (!invalidMinecraftName && tempFileConfiguration.getStringList("whitelisted").contains(finalNameToAdd)) {
+                                if (tempFileConfiguration.getStringList("whitelisted").contains(finalNameToAdd)) {
                                     channel.sendMessage(embedBuilderWhitelistSuccess.build()).queue();
 
                                     // Add role to user when they have been added to the whitelist if need be
